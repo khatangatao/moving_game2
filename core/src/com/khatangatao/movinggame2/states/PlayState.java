@@ -10,11 +10,13 @@ import com.khatangatao.movinggame2.sprites.Player;
 
 public class PlayState extends State{
     private Player player;
+    private Texture background;
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
         player = new Player(50, 100);
         camera.setToOrtho(false, Moving.WIDTH/2, Moving.HEIGHT/2);
+        background = new Texture("bg.png");
     }
 
     @Override
@@ -64,6 +66,9 @@ public class PlayState extends State{
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
+        //spriteBatch.draw(background, camera.position.x - (camera.viewportWidth/2), camera.position.y - (camera.viewportHeight/2));
+        spriteBatch.draw(background, camera.position.x - (camera.viewportWidth/2),0);
+        //spriteBatch.draw(background, 0,0);
         spriteBatch.draw(player.getTexture(), player.getPosition().x,player.getPosition().y);
         spriteBatch.end();
 
