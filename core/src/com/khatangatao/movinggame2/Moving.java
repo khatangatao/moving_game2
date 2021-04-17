@@ -9,7 +9,6 @@ import com.khatangatao.movinggame2.states.GameStateManager;
 import com.khatangatao.movinggame2.states.MenuState;
 
 public class Moving extends ApplicationAdapter {
-	//Viewport size
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 800;
 
