@@ -6,15 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.khatangatao.movinggame2.Moving;
 import com.khatangatao.movinggame2.sprites.Player;
+import com.khatangatao.movinggame2.sprites.Table;
 
 
 public class PlayState extends State{
     private Player player;
+    private Table table1, table2;
     private Texture background;
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
         player = new Player(50, 100);
+        table1 = new Table(100, 200);
+        table2 = new Table(30, 50);
         camera.setToOrtho(false, Moving.WIDTH/2, Moving.HEIGHT/2);
         background = new Texture("bg.png");
     }
@@ -70,6 +74,8 @@ public class PlayState extends State{
         spriteBatch.draw(background, camera.position.x - (camera.viewportWidth/2),0);
         //spriteBatch.draw(background, 0,0);
         spriteBatch.draw(player.getTexture(), player.getPosition().x,player.getPosition().y);
+        spriteBatch.draw(table1.getTexture(), table1.getPosition().x, table1.getPosition().y);
+        spriteBatch.draw(table2.getTexture(), table2.getPosition().x, table2.getPosition().y);
         spriteBatch.end();
 
     }
