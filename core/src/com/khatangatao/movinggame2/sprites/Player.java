@@ -30,7 +30,7 @@ public class Player {
     }
 
     public void update(float dt) {
-
+        body.setPosition(position.x, position.y);
     }
 
     public boolean collides(Rectangle player) {
