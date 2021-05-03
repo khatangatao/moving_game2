@@ -30,4 +30,8 @@ public class Table {
     public boolean collides(Rectangle player) {
         return player.overlaps(body);
     }
+
+    public void dispose() {
+        texture.dispose();
+    }
 }

@@ -33,42 +33,55 @@ public class PlayState extends State {
     }
 
     @Override
-    protected void handleInput() {
+    protected void handleInput(float dt) {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.getPosition().y += 200 * Gdx.graphics.getDeltaTime();
-            //if (player.collides(table1.getBody())) {
-            //    player.getPosition().y = table1.getBody().getY() - player.getBody().getHeight() - 2;
-            //
-            //} else if (player.collides(table2.getBody())) {
-            //    player.getPosition().y = table2.getBody().getY() - player.getBody().getHeight() - 2;
-            //}
+            //player.getPosition().y += 200 * Gdx.graphics.getDeltaTime();
+            player.getPosition().y += 200 * dt;
+            player.update(dt);
+            for (Table table : tables) {
+                if (player.collides(table.getBody())) {
+                    player.getPosition().y = table.getBody().getY() - player.getBody().getHeight();
+                }
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.getPosition().y -= 200 * Gdx.graphics.getDeltaTime();
-            //if (player.collides(table1.getBody())) {
-            //    player.getPosition().y = table1.getBody().getY() + table1.getBody().getHeight() + 2;
-            //
+            //player.getPosition().y -= 200 * Gdx.graphics.getDeltaTime();
+            player.getPosition().y -= 200 * dt;
+            player.update(dt);
+            for (Table table : tables) {
+                if (player.collides(table.getBody())) {
+                    player.getPosition().y = table.getBody().getY() + table.getBody().getHeight();
+                }
+            }
             //} else if (player.collides(table2.getBody())) {
             //    player.getPosition().y = table2.getBody().getY() + table2.getBody().getHeight() + 2;
             //}
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.getPosition().x -= 200 * Gdx.graphics.getDeltaTime();
-            //if (player.collides(table1.getBody())) {
-            //    player.getPosition().x = table1.getBody().getX() + table1.getBody().getWidth() + 2;
-            //
+            //player.getPosition().x -= 200 * Gdx.graphics.getDeltaTime();
+            player.getPosition().x -= 200 * dt;
+            player.update(dt);
+            for (Table table : tables) {
+                if (player.collides(table.getBody())) {
+                    player.getPosition().x = table.getBody().getX() + table.getBody().getWidth();
+                }
+            }
             //} else if (player.collides(table2.getBody())) {
             //    player.getPosition().x = table2.getBody().getX() + table2.getBody().getWidth() + 2;
             //}
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.getPosition().x += 200 * Gdx.graphics.getDeltaTime();
-            //if (player.collides(table1.getBody())) {
-            //    player.getPosition().x = table1.getBody().getX() - player.getBody().getWidth() - 2;
-            //
+            //player.getPosition().x += 200 * Gdx.graphics.getDeltaTime();
+            player.getPosition().x += 200 * dt;
+            player.update(dt);
+            for (Table table : tables) {
+                if (player.collides(table.getBody())) {
+                    player.getPosition().x = table.getBody().getX() - player.getBody().getWidth();
+                }
+            }
             //} else if (player.collides(table2.getBody())) {
             //    player.getPosition().x = table2.getBody().getX() - player.getBody().getWidth() - 2;
             //}
@@ -95,14 +108,14 @@ public class PlayState extends State {
 
     @Override
     public void update(float dt) {
-        handleInput();
+        handleInput(dt);
         player.update(dt);
-        for(Table table: tables) {
-            if (table.collides(player.getBody())) {
-            //    Как определить, какими сторонами соприкоснулись игрок и стол?
-
-            }
-        }
+        //for(Table table: tables) {
+        //    if (table.collides(player.getBody())) {
+        //    //    Как определить, какими сторонами соприкоснулись игрок и стол?
+        //
+        //    }
+        //}
 
     }
 
@@ -114,7 +127,7 @@ public class PlayState extends State {
         spriteBatch.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         //spriteBatch.draw(background, 0,0);
         spriteBatch.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        for(Table table: tables) {
+        for (Table table : tables) {
             spriteBatch.draw(table.getTexture(), table.getPosition().x, table.getPosition().y);
         }
         //spriteBatch.draw(table1.getTexture(), table1.getPosition().x, table1.getPosition().y);
@@ -125,6 +138,11 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        player.dispose();
+        for(Table table: tables) {
+            table.dispose();
+        }
+        System.out.println("PlayState disposed");
     }
 }

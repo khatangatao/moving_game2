@@ -18,16 +18,15 @@ public class MenuState extends State {
     }
 
     @Override
-    protected void handleInput() {
+    protected void handleInput(float dt) {
         if(Gdx.input.justTouched()) {
             gameStateManager.set(new PlayState(gameStateManager));
-            dispose();
         }
     }
 
     @Override
     public void update(float dt) {
-        handleInput();
+        handleInput(dt);
     }
 
     @Override
@@ -43,5 +42,6 @@ public class MenuState extends State {
     public void dispose() {
         background.dispose();
         playBtn.dispose();
+        System.out.println("MenuyState disposed");
     }
 }

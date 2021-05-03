@@ -9,10 +9,13 @@ public class Player {
     private Vector3 velocity;
     private Texture texture;
     private Rectangle body;
+    private Animation animation;
 
     public Player(int x, int y) {
         position = new Vector3(x, y, 0);
         texture = new Texture("player.png");
+        //Texture texture = new Texture("playeranimation.png");
+        //animation = new Animation();
         body = new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
 
     }
@@ -35,6 +38,10 @@ public class Player {
 
     public boolean collides(Rectangle player) {
         return player.overlaps(body);
+    }
+
+    public void dispose() {
+        texture.dispose();
     }
 
 }
