@@ -33,4 +33,8 @@ public class GameStateManager {
     public void render(SpriteBatch spriteBatch) {
         stateStack.peek().render(spriteBatch);
     }
+
+    public void resize(int width, int height) {
+        stateStack.peek().resize(width, height);
+    }
 }
