@@ -11,7 +11,7 @@ public class Table {
 
     public Table(int x, int y, String imagepath) {
         position = new Vector3(x, y, 0);
-        texture = new Texture("table1.png");
+        texture = new Texture(imagepath);
         body = new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
     }
 

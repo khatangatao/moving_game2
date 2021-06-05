@@ -23,6 +23,8 @@ public class PlayState extends State {
     private Array<Table> tables;
     public BitmapFont font;
     private Array<Border> borders;
+    private String table1pic = "table1.png";
+    private String table2pic = "table2.png";
 
 
     public PlayState(GameStateManager gameStateManager) {
@@ -40,8 +42,16 @@ public class PlayState extends State {
         //    //tables.add(new Table(50, 100));
         //}
 
-        // Tables
-        //tables.add(new Table());
+        // big tables
+        tables.add(new Table(913, Moving.WORLDHEIGHT - 887, table1pic));
+        tables.add(new Table(1067, Moving.WORLDHEIGHT - 887, table1pic));
+        tables.add(new Table(1261, Moving.WORLDHEIGHT - 476, table1pic));
+
+
+        //small tables
+        tables.add(new Table(933, Moving.WORLDHEIGHT - 476, table2pic));
+        tables.add(new Table(1063, Moving.WORLDHEIGHT - 476, table2pic));
+        tables.add(new Table(1281, Moving.WORLDHEIGHT - 662, table2pic));
 
 
         //Level borders
