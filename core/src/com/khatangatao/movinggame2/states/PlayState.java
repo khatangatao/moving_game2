@@ -23,7 +23,7 @@ public class PlayState extends State {
     private Array<Table> tables;
     public BitmapFont font;
     private Array<Border> borders;
-    //private Array<Vector3> coordinates;
+
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -34,15 +34,15 @@ public class PlayState extends State {
         background = new Texture("mg_level1.png");
         tables = new Array<>();
         borders = new Array<>();
-        // todo считывать координаты столов из хранилища
-        for (int i = 1; i < 3; i++) {
-            tables.add(new Table(i * 50, i * 100));
-            //tables.add(new Table(50, 100));
-        }
+        //// todo считывать координаты столов из хранилища
+        //for (int i = 1; i < 3; i++) {
+        //    tables.add(new Table(i * 50, i * 100));
+        //    //tables.add(new Table(50, 100));
+        //}
 
-        //Level borders coordinates
-        //coordinates.add(new Vector3(0, 300, 0));
-        //coordinates.add(new Vector3(0, 300, 0));
+        // Tables
+        //tables.add(new Table());
+
 
         //Level borders
         borders.add(new Border(0, 330, 60, 600));
