@@ -25,6 +25,8 @@ public class PlayState extends State {
     private Array<Border> borders;
     private String table1pic = "table1.png";
     private String table2pic = "table2.png";
+    private String table1picVertical = "table1vertical.png";
+    private String table2picVertical = "table2vertical.png";
 
 
     public PlayState(GameStateManager gameStateManager) {
@@ -46,12 +48,25 @@ public class PlayState extends State {
         tables.add(new Table(913, Moving.WORLDHEIGHT - 887, table1pic));
         tables.add(new Table(1067, Moving.WORLDHEIGHT - 887, table1pic));
         tables.add(new Table(1261, Moving.WORLDHEIGHT - 476, table1pic));
+        tables.add(new Table(169, Moving.WORLDHEIGHT - 200, table1picVertical));
+        tables.add(new Table(289, Moving.WORLDHEIGHT - 564, table1picVertical));
+        tables.add(new Table(680, Moving.WORLDHEIGHT - 210, table1picVertical));
 
 
         //small tables
         tables.add(new Table(933, Moving.WORLDHEIGHT - 476, table2pic));
         tables.add(new Table(1063, Moving.WORLDHEIGHT - 476, table2pic));
         tables.add(new Table(1281, Moving.WORLDHEIGHT - 662, table2pic));
+        tables.add(new Table(157, Moving.WORLDHEIGHT - 564, table2picVertical));
+        tables.add(new Table(157, Moving.WORLDHEIGHT - 434, table2picVertical));
+        tables.add(new Table(289, Moving.WORLDHEIGHT - 404, table2picVertical));
+        tables.add(new Table(347, Moving.WORLDHEIGHT - 489, table2pic));
+        tables.add(new Table(447, Moving.WORLDHEIGHT - 429, table2picVertical));
+        tables.add(new Table(333, Moving.WORLDHEIGHT - 190, table2picVertical));
+        tables.add(new Table(479, Moving.WORLDHEIGHT - 173, table2picVertical));
+        tables.add(new Table(619, Moving.WORLDHEIGHT - 179, table2picVertical));
+        tables.add(new Table(620, Moving.WORLDHEIGHT - 564, table2picVertical));
+        tables.add(new Table(620, Moving.WORLDHEIGHT - 434, table2picVertical));
 
 
         //Level borders
