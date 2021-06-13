@@ -5,16 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.khatangatao.movinggame2.Moving;
+import com.khatangatao.movinggame2.scenes.Hud;
 import com.khatangatao.movinggame2.sprites.Border;
 import com.khatangatao.movinggame2.sprites.Player;
 import com.khatangatao.movinggame2.sprites.Table;
-
-import java.util.List;
 
 
 public class PlayState extends State {
@@ -28,21 +25,19 @@ public class PlayState extends State {
     private String table1picVertical = "table1vertical.png";
     private String table2picVertical = "table2vertical.png";
 
+    private Hud hud;
+
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
         player = new Player(Moving.WORLDWIDTH / 2, Moving.WORLDHEIGHT / 2);
         gamePort = new FitViewport(Moving.VIEWPORTWIDTH, Moving.VIEWPORTHEIGHT, camera);
+        //hud = new Hud(new SpriteBatch());
         font = new BitmapFont();
         camera.setToOrtho(false, Moving.VIEWPORTWIDTH, Moving.VIEWPORTHEIGHT);
         background = new Texture("mg_level1.png");
         tables = new Array<>();
-        borders = new Array<>();
-        //// todo считывать координаты столов из хранилища
-        //for (int i = 1; i < 3; i++) {
-        //    tables.add(new Table(i * 50, i * 100));
-        //    //tables.add(new Table(50, 100));
-        //}
+        hud = new Hud(new SpriteBatch());
 
         // big tables
         tables.add(new Table(913, Moving.WORLDHEIGHT - 887, table1pic));
@@ -70,6 +65,7 @@ public class PlayState extends State {
 
 
         //Level borders
+        borders = new Array<>();
         borders.add(new Border(0, 330, 60, 600));
         borders.add(new Border(0, Moving.WORLDHEIGHT - 60, Moving.WORLDWIDTH, 60));
         borders.add(new Border(830, Moving.WORLDHEIGHT - 400, 80, Moving.WORLDHEIGHT));
@@ -77,8 +73,6 @@ public class PlayState extends State {
         borders.add(new Border(1420, 330, 80, 300));
         borders.add(new Border(0, 330, 900, 60));
         borders.add(new Border(830, 0, 80, 410));
-
-
 
     }
 
@@ -190,8 +184,12 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput(dt);
         player.update(dt);
+
         camera.position.x = player.getPosition().x;
         camera.position.y = player.getPosition().y;
+        hud.update(dt);
+        hud.setPosition_X(player.getPosition().x);
+        hud.setPosition_Y(player.getPosition().y);
         camera.update();
 
     }
@@ -203,17 +201,15 @@ public class PlayState extends State {
 
         spriteBatch.draw(background, 0, 0);
         spriteBatch.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        font.draw(
-                spriteBatch,
-                "Player position: " + player.getPosition().x + " x " + player.getPosition().y,
-                camera.position.x - camera.viewportWidth / 2 + 20,
-                camera.position.y + camera.viewportHeight / 2 - 20
-        );
 
         for (Table table : tables) {
             spriteBatch.draw(table.getTexture(), table.getPosition().x, table.getPosition().y);
         }
+
         spriteBatch.end();
+
+        spriteBatch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 
     }
 
@@ -230,6 +226,7 @@ public class PlayState extends State {
         }
 
         font.dispose();
+        hud.dispose();
         System.out.println("PlayState disposed");
     }
 }
