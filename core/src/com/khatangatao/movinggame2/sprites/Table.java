@@ -9,9 +9,9 @@ public class Table {
     private Texture texture;
     private Rectangle body;
 
-    public Table(int x, int y) {
+    public Table(int x, int y, String imagepath) {
         position = new Vector3(x, y, 0);
-        texture = new Texture("table.png");
+        texture = new Texture(imagepath);
         body = new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
     }
 
