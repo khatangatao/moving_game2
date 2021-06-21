@@ -17,7 +17,8 @@ public class Player {
         texture = new Texture("player.png");
         Texture texture = new Texture("playeranimation.png");
         animation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        body = new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
+//        body = new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
+        body = new Rectangle(position.x, position.y, animation.getFrame().getRegionWidth(), animation.getFrame().getRegionHeight());
 
     }
 
