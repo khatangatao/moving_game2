@@ -201,6 +201,7 @@ public class PlayState extends State {
 
         spriteBatch.draw(background, 0, 0);
         spriteBatch.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
+//        spriteBatch.draw(player.getAnimation(), player.getPosition().x, player.getPosition().y);
 
         for (Table table : tables) {
             spriteBatch.draw(table.getTexture(), table.getPosition().x, table.getPosition().y);
