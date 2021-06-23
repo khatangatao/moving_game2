@@ -116,6 +116,7 @@ public class PlayState extends State {
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             //player.getPosition().x -= 200 * Gdx.graphics.getDeltaTime();
+            player.setRunningRight(false);
             player.getPosition().x -= 200 * dt;
             player.update(dt);
             for (Table table : tables) {
@@ -134,6 +135,7 @@ public class PlayState extends State {
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             //player.getPosition().x += 200 * Gdx.graphics.getDeltaTime();
+            player.setRunningRight(true);
             player.getPosition().x += 200 * dt;
             player.update(dt);
             for (Table table : tables) {
@@ -201,7 +203,21 @@ public class PlayState extends State {
 
         spriteBatch.draw(background, 0, 0);
 //        spriteBatch.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
-        spriteBatch.draw(player.getAnimation(), player.getPosition().x, player.getPosition().y);
+
+//        SpriteBatch.draw(textureRegion, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
+//        spriteBatch.draw(player.getAnimation(), player.getPosition().x, player.getPosition().y);
+        spriteBatch.draw(
+                player.getAnimation(),
+                player.getPosition().x,
+                player.getPosition().y,
+                player.getBody().getWidth() / 2,
+                player.getBody().getHeight() / 2,
+                player.getBody().getWidth(),
+                player.getBody().getHeight(),
+                1,
+                1,
+                0f
+        );
 
         for (Table table : tables) {
             spriteBatch.draw(table.getTexture(), table.getPosition().x, table.getPosition().y);

@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class Player {
-    public enum State {STANDING, RUNNING};
+    public enum State {STANDING, RUNNING}
+
+    ;
     public State currentState;
     public State previousState;
     private float stateTimer;
@@ -14,7 +16,7 @@ public class Player {
 
     private Vector3 position;
     private Vector3 velocity;
-//    private Texture texture;
+    //    private Texture texture;
     private Rectangle body;
     private Animation animation;
 
@@ -35,8 +37,24 @@ public class Player {
         runningRight = true;
     }
 
-    public TextureRegion getAnimation(){
-        return animation.getFrame();
+    public TextureRegion getAnimation() {
+        if (runningRight && !animation.getFrame().isFlipX()) {
+            return animation.getFrame();
+        } else if (runningRight && animation.getFrame().isFlipX()) {
+            TextureRegion result = animation.getFrame();
+            result.flip(true, false);
+            return result;
+        } else if (!runningRight && animation.getFrame().isFlipX()){
+            return animation.getFrame();
+        } else {
+            TextureRegion result = animation.getFrame();
+            result.flip(true, false);
+            return result;
+        }
+    }
+
+    public void setRunningRight(boolean flag) {
+        runningRight = flag;
     }
 
     public Vector3 getPosition() {
