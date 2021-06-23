@@ -88,7 +88,7 @@ public class PlayState extends State {
                 }
             }
 
-            for (Border border: borders) {
+            for (Border border : borders) {
                 if (player.collides(border.getBody())) {
                     player.getPosition().y = border.getBody().getY() - player.getBody().getHeight();
                 }
@@ -106,7 +106,7 @@ public class PlayState extends State {
                 }
             }
 
-            for (Border border: borders) {
+            for (Border border : borders) {
                 if (player.collides(border.getBody())) {
                     player.getPosition().y = border.getBody().getY() + border.getBody().getHeight();
                 }
@@ -125,7 +125,7 @@ public class PlayState extends State {
                 }
             }
 
-            for (Border border: borders) {
+            for (Border border : borders) {
                 if (player.collides(border.getBody())) {
                     player.getPosition().x = border.getBody().getX() + border.getBody().getWidth();
                 }
@@ -144,7 +144,7 @@ public class PlayState extends State {
                 }
             }
 
-            for (Border border: borders) {
+            for (Border border : borders) {
                 if (player.collides(border.getBody())) {
                     player.getPosition().x = border.getBody().getX() - player.getBody().getWidth();
                 }
@@ -204,20 +204,66 @@ public class PlayState extends State {
         spriteBatch.draw(background, 0, 0);
 //        spriteBatch.draw(player.getTexture(), player.getPosition().x, player.getPosition().y);
 
-//        SpriteBatch.draw(textureRegion, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
-//        spriteBatch.draw(player.getAnimation(), player.getPosition().x, player.getPosition().y);
-        spriteBatch.draw(
-                player.getAnimation(),
-                player.getPosition().x,
-                player.getPosition().y,
-                player.getBody().getWidth() / 2,
-                player.getBody().getHeight() / 2,
-                player.getBody().getWidth(),
-                player.getBody().getHeight(),
-                1,
-                1,
-                0f
-        );
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            spriteBatch.draw(
+                    player.getAnimation(),
+                    player.getPosition().x,
+                    player.getPosition().y,
+                    player.getBody().getWidth() / 2,
+                    player.getBody().getHeight() / 2,
+                    player.getBody().getWidth(),
+                    player.getBody().getHeight(),
+                    1,
+                    1,
+                    -45f
+            );
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            spriteBatch.draw(
+                    player.getAnimation(),
+                    player.getPosition().x,
+                    player.getPosition().y,
+                    player.getBody().getWidth() / 2,
+                    player.getBody().getHeight() / 2,
+                    player.getBody().getWidth(),
+                    player.getBody().getHeight(),
+                    1,
+                    1,
+                    45f
+            );
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            spriteBatch.draw(
+                    player.getAnimation(),
+                    player.getPosition().x,
+                    player.getPosition().y,
+                    player.getBody().getWidth() / 2,
+                    player.getBody().getHeight() / 2,
+                    player.getBody().getWidth(),
+                    player.getBody().getHeight(),
+                    1,
+                    1,
+                    45f
+            );
+
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            spriteBatch.draw(
+                    player.getAnimation(),
+                    player.getPosition().x,
+                    player.getPosition().y,
+                    player.getBody().getWidth() / 2,
+                    player.getBody().getHeight() / 2,
+                    player.getBody().getWidth(),
+                    player.getBody().getHeight(),
+                    1,
+                    1,
+                    315f
+            );
+
+        } else {
+            spriteBatch.draw(player.getAnimation(), player.getPosition().x, player.getPosition().y);
+
+        }
 
         for (Table table : tables) {
             spriteBatch.draw(table.getTexture(), table.getPosition().x, table.getPosition().y);
