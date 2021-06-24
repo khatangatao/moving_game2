@@ -17,20 +17,26 @@ public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
-    private Integer worldTimer;
     private float timeCount;
     private float Position_X;
     private float Position_Y;
+    private Integer counter;
+    private Integer worldTimer;
 
-    Label countdownLabel;
+
     Label positionXlabel;
     Label positionYlabel;
-    Label timeLabel;
+    Label counterLabel;
+    Label countdownLabel;
+
     Label positionY;
     Label positionX;
+    Label countLabel;
+    Label timeLabel;
 
     public Hud(SpriteBatch sb) {
         worldTimer = 300;
+        counter = 0;
         timeCount = 0;
         Position_X = 0;
 
@@ -46,21 +52,25 @@ public class Hud implements Disposable {
 
         positionX = new Label("POSITION X", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
         positionY = new Label("POSITION Y", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
+        countLabel = new Label("COUNTER", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.CYAN));
 
         positionXlabel = new Label(String.format("%06f", Position_X), new Label.LabelStyle(new BitmapFont(), Color.CYAN));
         positionYlabel = new Label(String.format("%06f", Position_Y), new Label.LabelStyle(new BitmapFont(), Color.CYAN));
+        counterLabel = new Label(String.format("%03d", counter), new Label.LabelStyle(new BitmapFont(), Color.CYAN));
         countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.CYAN));
 
 
         table.add(positionX).expandX().padTop(10);
         table.add(positionY).expandX().padTop(10);
+        table.add(countLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
 
         //Добавляем новую строку. Все, что ниже этой инструкции, будет размещено на этой строке
         table.row();
         table.add(positionXlabel).expandX();
         table.add(positionYlabel).expandX();
+        table.add(counterLabel).expandX();
         table.add(countdownLabel).expandX();
 
         stage.addActor(table);
@@ -83,6 +93,11 @@ public class Hud implements Disposable {
     public void setPosition_Y(float y) {
         Position_Y = y;
         positionYlabel.setText(String.format("%06f", Position_Y));
+    }
+
+    public void incrementCounter(){
+        counter++;
+        counterLabel.setText(String.format("%03d", counter));
     }
 
 
