@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.khatangatao.movinggame2.Moving;
 import com.khatangatao.movinggame2.scenes.Hud;
 import com.khatangatao.movinggame2.sprites.Border;
+import com.khatangatao.movinggame2.sprites.Coin;
 import com.khatangatao.movinggame2.sprites.Player;
 import com.khatangatao.movinggame2.sprites.Table;
 
@@ -20,10 +21,12 @@ public class PlayState extends State {
     private Array<Table> tables;
     public BitmapFont font;
     private Array<Border> borders;
+    private Array<Coin> coins;
     private String table1pic = "table1.png";
     private String table2pic = "table2.png";
     private String table1picVertical = "table1vertical.png";
     private String table2picVertical = "table2vertical.png";
+    private String coinPic = "coin.png";
 
     private Hud hud;
 
@@ -74,6 +77,20 @@ public class PlayState extends State {
         borders.add(new Border(0, 330, 900, 60));
         borders.add(new Border(830, 0, 80, 410));
 
+
+        // Coins
+        coins = new Array<>();
+        coins.add(new Coin(120, Moving.WORLDHEIGHT - 100, coinPic));
+        coins.add(new Coin(269, Moving.WORLDHEIGHT - 100, coinPic));
+        coins.add(new Coin(237, Moving.WORLDHEIGHT - 486, coinPic));
+        coins.add(new Coin(415, Moving.WORLDHEIGHT - 405, coinPic));
+        coins.add(new Coin(768, Moving.WORLDHEIGHT - 115, coinPic));
+        coins.add(new Coin(378, Moving.WORLDHEIGHT - 531, coinPic));
+        coins.add(new Coin(932, Moving.WORLDHEIGHT - 400, coinPic));
+        coins.add(new Coin(933, Moving.WORLDHEIGHT - 779, coinPic));
+        coins.add(new Coin(1344, Moving.WORLDHEIGHT - 395, coinPic));
+        coins.add(new Coin(1374, Moving.WORLDHEIGHT - 596, coinPic));
+
     }
 
     @Override
@@ -111,6 +128,7 @@ public class PlayState extends State {
                     player.getPosition().y = border.getBody().getY() + border.getBody().getHeight();
                 }
             }
+
 
         }
 
@@ -150,6 +168,13 @@ public class PlayState extends State {
                 }
             }
 
+        }
+
+        for (Coin coin : coins) {
+            if (player.collides(coin.getBody()) && !coin.isHidden()) {
+                coin.setHidden(true);
+                hud.incrementCounter();
+            }
         }
 
         // make sure the player stays within the screen bounds
@@ -267,6 +292,13 @@ public class PlayState extends State {
 
         for (Table table : tables) {
             spriteBatch.draw(table.getTexture(), table.getPosition().x, table.getPosition().y);
+        }
+
+        for (Coin coin : coins) {
+            if (!coin.isHidden()) {
+                spriteBatch.draw(coin.getTexture(), coin.getPosition().x, coin.getPosition().y
+                );
+            }
         }
 
         spriteBatch.end();
