@@ -29,6 +29,8 @@ public class PlayState extends State {
     private String table1picVertical = "table1vertical.png";
     private String table2picVertical = "table2vertical.png";
     private String coinPic = "coin.png";
+    private String monsterBasic = "monsteranimation.png";
+    private String turtlePic  = "turtleanimation.png";
 
     private Hud hud;
 
@@ -75,9 +77,11 @@ public class PlayState extends State {
         borders.add(new Border(0, Moving.WORLDHEIGHT - 60, Moving.WORLDWIDTH, 60));
         borders.add(new Border(830, Moving.WORLDHEIGHT - 400, 80, Moving.WORLDHEIGHT));
         borders.add(new Border(830, Moving.WORLDHEIGHT - 350, 600, 50));
-        borders.add(new Border(1420, 330, 80, 300));
+        borders.add(new Border(1420, Moving.WORLDHEIGHT - 637, 80, 300));
         borders.add(new Border(0, 330, 900, 60));
         borders.add(new Border(830, 0, 80, 410));
+        borders.add(new Border(900, 0, 600, 5));
+        borders.add(new Border(1490, 0, 10, Moving.WORLDHEIGHT - 637));
 
 
         // Coins
@@ -95,7 +99,10 @@ public class PlayState extends State {
 
 //        Monsters
         monsters = new Array<>();
-        monsters.add(new Monster(Moving.WORLDWIDTH / 2 + 100, Moving.WORLDHEIGHT / 2));
+        monsters.add(new Monster(Moving.WORLDWIDTH / 2 + 100, Moving.WORLDHEIGHT / 2, 3, monsterBasic));
+        monsters.add(new Monster(450, 700, 4, turtlePic));
+        monsters.add(new Monster(500, 475, 3 , monsterBasic));
+
 
     }
 
@@ -183,28 +190,28 @@ public class PlayState extends State {
             }
         }
 
+        for (Monster monster : monsters) {
+            if (player.collides(monster.getBody())) {
+                gameStateManager.set(new GameOverState(gameStateManager));
+            }
+        }
+
         // make sure the player stays within the screen bounds
-        if (player.getPosition().x < 0) {
-            player.getPosition().x = 0;
-        }
-
-        //if (player.getPosition().x > camera.viewportWidth - player.getBody().getWidth()) {
-        //    player.getPosition().x = camera.viewportWidth - player.getBody().getWidth();
-        //}
-        if (player.getPosition().x > Moving.WORLDWIDTH - player.getBody().getWidth()) {
-            player.getPosition().x = Moving.WORLDWIDTH - player.getBody().getWidth();
-        }
-
-        if (player.getPosition().y < 0) {
-            player.getPosition().y = 0;
-        }
-
-        //if (player.getPosition().y > camera.viewportHeight - player.getBody().getHeight()) {
-        //    player.getPosition().y = camera.viewportHeight - player.getBody().getHeight();
-        //}
-        if (player.getPosition().y > Moving.WORLDHEIGHT - player.getBody().getHeight()) {
-            player.getPosition().y = Moving.WORLDHEIGHT - player.getBody().getHeight();
-        }
+//        if (player.getPosition().x < 0) {
+//            player.getPosition().x = 0;
+//        }
+//
+//        if (player.getPosition().x > Moving.WORLDWIDTH - player.getBody().getWidth()) {
+//            player.getPosition().x = Moving.WORLDWIDTH - player.getBody().getWidth();
+//        }
+//
+//        if (player.getPosition().y < 0) {
+//            player.getPosition().y = 0;
+//        }
+//
+//        if (player.getPosition().y > Moving.WORLDHEIGHT - player.getBody().getHeight()) {
+//            player.getPosition().y = Moving.WORLDHEIGHT - player.getBody().getHeight();
+//        }
 
     }
 
