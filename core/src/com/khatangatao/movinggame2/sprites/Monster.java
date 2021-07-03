@@ -14,10 +14,10 @@ public class Monster {
     private Rectangle body;
     private Animation animation;
 
-    public Monster(int x, int y) {
+    public Monster(int x, int y, int framecount, String imagepath) {
         position = new Vector3(x, y, 0);
-        texture = new Texture("monsteranimation.png");
-        animation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        texture = new Texture(imagepath);
+        animation = new Animation(new TextureRegion(texture), framecount, 0.5f);
         body = new Rectangle(position.x, position.y, animation.getFrame().getRegionWidth(), animation.getFrame().getRegionHeight());
         runningRight = true;
         velocity = 30;
