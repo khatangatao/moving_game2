@@ -11,6 +11,7 @@ import com.khatangatao.movinggame2.Moving;
 import com.khatangatao.movinggame2.scenes.Hud;
 import com.khatangatao.movinggame2.sprites.Border;
 import com.khatangatao.movinggame2.sprites.Coin;
+import com.khatangatao.movinggame2.sprites.Monster;
 import com.khatangatao.movinggame2.sprites.Player;
 import com.khatangatao.movinggame2.sprites.Table;
 
@@ -22,6 +23,7 @@ public class PlayState extends State {
     public BitmapFont font;
     private Array<Border> borders;
     private Array<Coin> coins;
+    private Array<Monster> monsters;
     private String table1pic = "table1.png";
     private String table2pic = "table2.png";
     private String table1picVertical = "table1vertical.png";
@@ -90,6 +92,10 @@ public class PlayState extends State {
         coins.add(new Coin(933, Moving.WORLDHEIGHT - 779, coinPic));
         coins.add(new Coin(1344, Moving.WORLDHEIGHT - 395, coinPic));
         coins.add(new Coin(1374, Moving.WORLDHEIGHT - 596, coinPic));
+
+//        Monsters
+        monsters = new Array<>();
+        monsters.add(new Monster(Moving.WORLDWIDTH / 2 + 100, Moving.WORLDHEIGHT / 2));
 
     }
 
@@ -212,6 +218,25 @@ public class PlayState extends State {
         handleInput(dt);
         player.update(dt);
 
+        // Monster collisions
+        for(Monster monster: monsters) {
+
+            for (Table table : tables) {
+                if (monster.collides(table.getBody())) {
+                        monster.invertDirection();
+                }
+            }
+
+            for (Border border : borders) {
+                if (monster.collides(border.getBody())) {
+                    monster.invertDirection();
+                }
+            }
+
+            monster.update(dt);
+
+        }
+
         camera.position.x = player.getPosition().x;
         camera.position.y = player.getPosition().y;
         hud.update(dt);
@@ -299,6 +324,10 @@ public class PlayState extends State {
                 spriteBatch.draw(coin.getTexture(), coin.getPosition().x, coin.getPosition().y
                 );
             }
+        }
+
+        for (Monster monster : monsters) {
+            spriteBatch.draw(monster.getAnimation(), monster.getPosition().x, monster.getPosition().y);
         }
 
         spriteBatch.end();
