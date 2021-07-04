@@ -2,6 +2,8 @@ package com.khatangatao.movinggame2;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,6 +22,9 @@ public class Moving extends ApplicationAdapter {
 	private GameStateManager gameStateManager;
 	private SpriteBatch batch;
 	Texture img;
+
+	private Sound footsteps;
+	private Music levelMusic;
 	
 	@Override
 	public void create () {
@@ -27,6 +32,14 @@ public class Moving extends ApplicationAdapter {
 		gameStateManager = new GameStateManager();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		gameStateManager.push(new MenuState(gameStateManager));
+
+		// load the drop sound effect and the rain background "music"
+		footsteps = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+		levelMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+
+		// start the playback of the background music immediately
+		levelMusic.setLooping(true);
+		levelMusic.play();
 	}
 
 	@Override
