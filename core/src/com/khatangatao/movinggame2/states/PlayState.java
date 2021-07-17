@@ -2,6 +2,8 @@ package com.khatangatao.movinggame2.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,6 +36,9 @@ public class PlayState extends State {
 
     private Hud hud;
 
+    private Sound coinSound;
+    private Music levelMusic;
+
 
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -45,6 +50,14 @@ public class PlayState extends State {
         background = new Texture("mg_level1.png");
         tables = new Array<>();
         hud = new Hud(new SpriteBatch());
+
+        coinSound = Gdx.audio.newSound(Gdx.files.internal("sfx/Coin.wav"));
+        levelMusic = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+
+        // start the playback of the background music immediately
+        levelMusic.setLooping(true);
+        levelMusic.setVolume(0.5f);
+        levelMusic.play();
 
         // big tables
         tables.add(new Table(913, Moving.WORLDHEIGHT - 887, table1pic));
@@ -186,6 +199,7 @@ public class PlayState extends State {
         for (Coin coin : coins) {
             if (player.collides(coin.getBody()) && !coin.isHidden()) {
                 coin.setHidden(true);
+                coinSound.play();
                 hud.incrementCounter();
             }
         }
@@ -358,6 +372,8 @@ public class PlayState extends State {
 
         font.dispose();
         hud.dispose();
+        levelMusic.dispose();
+        coinSound.dispose();
         System.out.println("PlayState disposed");
     }
 }
